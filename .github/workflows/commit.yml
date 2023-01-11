@@ -1,0 +1,14 @@
+name: "Restrict PR to a single commit"
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches:
+      - "!release/*"
+
+jobs:
+  ensure_single_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: thebigredgeek/SingleCommit@0.0.2
