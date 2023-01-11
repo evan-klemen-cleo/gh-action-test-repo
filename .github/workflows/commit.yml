@@ -4,10 +4,12 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
-      - "!release/*"
+      - "main"
 
 jobs:
-  ensure_single_commit:
+  # Only run on PR's not coming from a release branch
+  run-if:
+    if: ${{ !startsWith(github.head_ref, 'release/') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
